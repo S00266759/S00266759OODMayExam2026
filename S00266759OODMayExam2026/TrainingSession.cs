@@ -17,7 +17,7 @@ namespace S00266759OODMayExam2026
         public int MemberId { get; set; } //FK (Foreign Key)
 
         //Navagation property to Member
-        public virtual Member Members { get; set; } 
+        public virtual Member Member { get; set; } 
         
     }
 }
