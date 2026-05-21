@@ -14,5 +14,10 @@ namespace S00266759OODMayExam2026
         public DateTime DateOfBirth { get; set; }
         public string ContactNumber { get; set; }
         public string MembershipType { get; set; }
+
+
+        //Navagation property to TrainingSession
+        public virtual ICollection<TrainingSession> TrainingSessions { get; set; } = new List<TrainingSession>();
+        
     }
 }

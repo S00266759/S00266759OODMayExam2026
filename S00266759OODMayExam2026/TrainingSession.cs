@@ -14,5 +14,10 @@ namespace S00266759OODMayExam2026
         public int DurationMinutes { get; set; }
         public string CoachNotes { get; set; }
 
+        public int MemberId { get; set; } //FK (Foreign Key)
+
+        //Navagation property to Member
+        public virtual Member Members { get; set; } 
+        
     }
 }
