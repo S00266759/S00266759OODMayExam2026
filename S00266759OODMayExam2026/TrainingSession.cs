@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.Entity;
 
 namespace S00266759OODMayExam2026
 {
     public class TrainingSession
     {
-        public int SessionID { get; set; }
+
+        public int TrainingSessionId { get; set; } //PK (Primary Key)
         public DateTime SessionDate { get; set; }
         public string SessionType { get; set; }
         public int DurationMinutes { get; set; }

@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Data.Entity;
 
 namespace S00266759OODMayExam2026
 {
@@ -30,14 +31,43 @@ namespace S00266759OODMayExam2026
             Console.WriteLine("Created Members");
 
             //Cardio Training Session
-            member1.TrainingSessions.Add(new TrainingSession { SessionID = 356741891, SessionDate = new DateTime (2026, 6, 24), SessionType = "Cardio", DurationMinutes = 50, CoachNotes = "stamina improved since last week"});
-            member2.TrainingSessions.Add(new TrainingSession { SessionID = 331562617, SessionDate = new DateTime (2026, 6, 24), SessionType = "Cardio", DurationMinutes = 50, CoachNotes = "stamina stayed moderate since last week"});
+            member1.TrainingSessions.Add(new TrainingSession { TrainingSessionId = 356741891, SessionDate = new DateTime (2026, 6, 24), SessionType = "Cardio", DurationMinutes = 50, CoachNotes = "stamina improved since last week"});
+            member2.TrainingSessions.Add(new TrainingSession { TrainingSessionId = 331562617, SessionDate = new DateTime (2026, 6, 24), SessionType = "Cardio", DurationMinutes = 50, CoachNotes = "stamina stayed moderate since last week"});
 
             //Weight Training Session
-            member1.TrainingSessions.Add(new TrainingSession { SessionID = 462198317, SessionDate = new DateTime(2026, 6, 26), SessionType = "HIIT", DurationMinutes = 30, CoachNotes = "strength stayed moderate since last week" });
-            member2.TrainingSessions.Add(new TrainingSession { SessionID = 489039178, SessionDate = new DateTime (2026, 6, 26), SessionType = "HIIT", DurationMinutes = 30, CoachNotes = "strength improved since last week" });
+            member1.TrainingSessions.Add(new TrainingSession { TrainingSessionId = 462198317, SessionDate = new DateTime(2026, 6, 26), SessionType = "HIIT", DurationMinutes = 30, CoachNotes = "strength stayed moderate since last week" });
+            member2.TrainingSessions.Add(new TrainingSession { TrainingSessionId = 489039178, SessionDate = new DateTime (2026, 6, 26), SessionType = "HIIT", DurationMinutes = 30, CoachNotes = "strength improved since last week" });
 
             Console.WriteLine("Added training sessions to members");
+
+
+            ClubData db = new ClubData();
+            db.Members.Add(member1);
+            db.Members.Add(member2);
+
+            Console.WriteLine("Added members to db");
+
+            db.SaveChanges();
+
+            Console.WriteLine("Saved db");
+
+
+            // Query
+            var members = db.Members
+                            .Include(m => m.TrainingSessions)
+                            .ToList();
+
+            foreach (var member in members)
+            {
+                Console.WriteLine($"Member: {member.FirstName} {member.Surname}");
+
+                foreach (var session in member.TrainingSessions)
+                {
+                    Console.WriteLine($"  - {session.SessionType} | {session.SessionDate.ToShortDateString()} | {session.DurationMinutes} mins");
+                }
+            }
+
+            Console.ReadLine();
         }
 
     }
